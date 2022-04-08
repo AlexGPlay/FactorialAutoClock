@@ -1,0 +1,17 @@
+{
+  "name": "selenium-factorial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.29.0",
+    "node-notifier": "^8.0.0",
+    "selenium-webdriver": "^4.0.0-alpha.7"
+  }
+}
