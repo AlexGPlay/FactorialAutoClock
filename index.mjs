@@ -8,15 +8,13 @@ import path from "path";
 
 async function execute(headless, basePath, sleepMS) {
   await sleep(sleepMS);
-  if (sleepMS > 0)
-    notification("Fichaje reactivado", "El proceso de fichaje va a continuar");
+  if (sleepMS > 0) notification("Clock in/out continues", "The process is going to resume");
 
   const user = configReader(path.resolve(basePath, "data.json"));
   const webdriver = await buildFirefox(headless);
   await loginFactorial(webdriver, user);
   const basicData = await getOpenShift(webdriver);
-  const clock_type =
-    Object.keys(basicData).length === 0 ? "clock_in" : "clock_out";
+  const clock_type = Object.keys(basicData).length === 0 ? "clock_in" : "clock_out";
   const response = await fileShift(webdriver, clock_type);
   await webdriver.quit();
   return `${clock_type} => ${JSON.stringify(response)}`;
@@ -28,7 +26,7 @@ function sleep(ms) {
   });
 }
 
-notification("Fichaje", "Se ha lanzado el proceso de fichaje");
+notification("Clock in/out", "Process has started");
 
 let executionPath = process.argv[1];
 let time = 0;
@@ -40,10 +38,7 @@ if (process.argv.includes("-p")) {
 
   time = Math.floor(Math.random() * (max - min + 1)) + min;
 
-  notification(
-    "Fichaje esperando",
-    `El proceso va a esperar ${time} minutos para fichar`
-  );
+  notification("Clock in/out random wait", `The process is going to wait ${time} minutes to start`);
 
   time *= msToMinMUltiplier;
 }
@@ -53,6 +48,4 @@ const currentDirectory = executionPath.includes(".js")
   : executionPath;
 
 const headless = process.argv.includes("-h");
-execute(headless, currentDirectory, time).then((res) =>
-  notification("Fichaje finalizado", res)
-);
+execute(headless, currentDirectory, time).then((res) => notification("Clock in/out done", res));
